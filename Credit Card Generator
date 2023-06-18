@@ -1,0 +1,137 @@
+# Credit_Card_Number_Generator
+    ],
+            "summary": "It is API to generate random credit card numbers",
+            "description": "Generate random credit card numbers",
+            "parameters": [
+               {
+                  "name": "vendor",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "$ref": "#/components/schemas/Vendor"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/GetRandomCardNumberResponse"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Bad request",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorResponse"
+                        }
+                     }
+                  }
+               }
+            },
+            "security": [
+               {
+                  "apiKeyAuth": []
+               }
+            ]
+         }
+      },
+      "/vendors": {
+         "get": {
+            "tags": [
+               "Credit Card Number Generator"
+            ],
+            "summary": "It is API to get list of supported vendors",
+            "description": "Return list of supported vendors",
+            "responses": {
+               "200": {
+                  "description": "Successful response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/GetVendorsResponse"
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Bad request",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/ErrorResponse"
+                        }
+                     }
+                  }
+               }
+            },
+            "security": [
+               {
+                  "apiKeyAuth": []
+               }
+            ]
+         }
+      }
+   },
+   "components": {
+      "schemas": {
+         "Vendor": {
+            "type": "string",
+            "enum": [
+               "visa",
+               "master-card",
+               "diners-club",
+               "american-express",
+               "discover",
+               "jcb"
+            ]
+         },
+         "GetRandomCardNumberResponse": {
+            "type": "object",
+            "properties": {
+               "vendors": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/Vendor"
+                  }
+               }
+            }
+         },
+         "GetVendorsResponse": {
+            "type": "object",
+            "properties": {
+               "number": {
+                  "type": "string"
+               },
+               "vendor": {
+                  "type": "string",
+                  "items": {
+                     "$ref": "#/components/schemas/Vendor"
+                  }
+               }
+            }
+         },
+         "ErrorResponse": {
+            "type": "object",
+            "properties": {
+               "message": {
+                  "type": "string"
+               }
+            }
+         }
+      },
+      "securitySchemes": {
+         "apiKeyAuth": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "X-OpenAPIHub-Key"
+         }
+      }
+   },
+   "tags": []
+}
